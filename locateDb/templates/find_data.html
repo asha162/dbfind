@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Data</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            margin: 20px;
+        }
+        .dropdown-container {
+            display: flex;
+            align-items: center;
+        }
+        select {
+            padding: 5px;
+            margin-right: 10px;
+        }
+        .result-container {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Find Data</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        <div class="dropdown-container">
+            <select name="selected_item" required>
+                <option value="">Select an item</option>
+                {% for item in items %}
+                    <option value="{{ item }}">{{ item }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit">Find</button>
+        </div>
+    </form>
+
+    {% if selected_item %}
+        <div class="result-container">
+            <p>You selected: <strong>{{ selected_item }}</strong></p>
+            <p>It is found in the database: <strong>{{ database_name }}</strong></p>
+        </div>
+    {% endif %}
+</div>
+
+</body>
+</html>
